@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Atlassian-Build-Date: 2020-05-28T17:30:57+0200
+Atlassian-Plugin-Key: at.willhaben.bitbucket.commit-message-plugin
+Bnd-LastModified: 1590679883089
+Build-Jdk: 11.0.6
+Built-By: aselmi
+Bundle-Description: This is the at.willhaben.bitbucket:commit-message-pl
+ ugin plugin for Atlassian Bitbucket Server.
+Bundle-DocURL: http://www.willhaben.at/
+Bundle-ManifestVersion: 2
+Bundle-Name: commit-message-plugin
+Bundle-SymbolicName: at.willhaben.bitbucket.commit-message-plugin
+Bundle-Vendor: Willhaben
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: at.willhaben.bitbucket.api;version="1.0.0"
+Spring-Context: *
+Tool: Bnd-3.5.0.201709291849

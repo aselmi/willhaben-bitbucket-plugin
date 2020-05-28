@@ -1,0 +1,17 @@
+<repository lastmodified='20200528053131.020'>
+  <resource id='at.willhaben.bitbucket.commit-message-plugin/1.0.0.SNAPSHOT' symbolicname='at.willhaben.bitbucket.commit-message-plugin' presentationname='commit-message-plugin' uri='commit-message-plugin-1.0.0-SNAPSHOT.jar' version='1.0.0.SNAPSHOT'>
+    <description>This is the at.willhaben.bitbucket:commit-message-plugin plugin for Atlassian Bitbucket Server.</description>
+    <size>9352</size>
+    <documentation>http://www.willhaben.at/</documentation>
+    <capability name='bundle'>
+      <p n='symbolicname' v='at.willhaben.bitbucket.commit-message-plugin'/>
+      <p n='presentationname' v='commit-message-plugin'/>
+      <p n='version' t='version' v='1.0.0.SNAPSHOT'/>
+      <p n='manifestversion' v='2'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='at.willhaben.bitbucket.api'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+  </resource>
+</repository>
