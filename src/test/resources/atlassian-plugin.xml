@@ -5,10 +5,7 @@
         <vendor name="${project.organization.name}" url="${project.organization.url}"/>
     </plugin-info>
 
-    <!-- from our base plugin -->
-    <component-import key="myComponent" interface="at.willhaben.bitbucket.api.MyPluginComponent"/>
-
-    <!-- from the product container -->
-    <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+    <repository-hook key="commit-message-hook" name="Commit Message Hook" class="at.willhaben.bitbucket.hook.PreRepositoryCommitMessageHook">
+    </repository-hook>
 
 </atlassian-plugin>
