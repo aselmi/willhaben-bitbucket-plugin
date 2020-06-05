@@ -1,0 +1,1 @@
+# willhaben-bitbucket-plugin
