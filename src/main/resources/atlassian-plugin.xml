@@ -9,7 +9,7 @@
     <param name="plugin-logo">images/pluginLogo.png</param> 
   </plugin-info>
 
-  <repository-hook key="commit-message-hook" name="Commit Message Hook" class="at.willhaben.bitbucket.hook.PreRepositoryCommitMessageHook">
+  <repository-hook key="commit-message-hook" name="Commit Message Validator" class="at.willhaben.bitbucket.hook.PreRepositoryCommitMessageHook">
   </repository-hook>
 
 </atlassian-plugin>

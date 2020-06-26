@@ -3,11 +3,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>at.willhaben.bitbucket</groupId>
-    <artifactId>commit-message-plugin</artifactId>
+    <artifactId>commit-message-validator-plugin</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>atlassian-plugin</packaging>
-    <name>commit-message-plugin</name>
+    <name>commit-message-validator-plugin</name>
+
+    <description>A simple hook plugin to validate the commit message contains a correct JIRA ticket id</description>
+    <organization>
+        <name>Willhaben</name>
+        <url>www.willhaben.at/iad</url>
+    </organization>
 
     <prerequisites>
         <maven>3.6.2</maven>
@@ -56,21 +63,6 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <version>${spring.boot.version}</version>
             <scope>test</scope>
@@ -80,16 +72,6 @@
                     <artifactId>mockito-core</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>${spring.boot.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>${spring.boot.version}</version>
         </dependency>
         <dependency>
             <groupId>com.atlassian.plugin</groupId>
@@ -105,6 +87,7 @@
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
+            <version>2.2.3</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -172,12 +155,14 @@
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
             <version>2.3.1</version>
+            <scope>provided</scope>
         </dependency>
         <!-- API, java.xml.bind module -->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
             <version>2.3.2</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Runtime, com.sun.xml.bind module -->
@@ -185,6 +170,7 @@
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
             <version>2.3.2</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -195,8 +181,8 @@
             <url>https://repo.spring.io/libs-milestone/</url>
         </repository>
         <repository>
-            <id>maven-central-plugin-repository</id>
-            <name>Maven Central Plugin Repository</name>
+            <id>maven-central-repository</id>
+            <name>Maven Central Repository</name>
             <url>https://repo.maven.apache.org/maven2</url>
         </repository>
     </repositories>
@@ -213,7 +199,6 @@
             <url>https://repo.maven.apache.org/maven2</url>
         </pluginRepository>
     </pluginRepositories>
-
 
     <build>
         <plugins>
@@ -236,8 +221,10 @@
                         <!-- Add package to export here -->
                         <Export-Package>at.willhaben.bitbucket.api,</Export-Package>
                         <!-- Add package import here -->
-                        <Import-Package>org.springframework.osgi.*;resolution:="optional",
-                            org.eclipse.gemini.blueprint.*;resolution:="optional", *
+                        <Import-Package>
+                            org.springframework.osgi.*;version="0";resolution:="optional",
+                            org.eclipse.gemini.blueprint.*;version="0";resolution:="optional",
+                            *;version="0";resolution:=optional
                         </Import-Package>
                         <!-- Ensure plugin is Spring powered -->
                         <Spring-Context>*</Spring-Context>
@@ -270,46 +257,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>9</source>
-                    <target>9</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
         </plugins>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.20</version>
-                    <configuration>
-                        <testFailureIgnore>true</testFailureIgnore>
-                        <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-                        <forkCount>0</forkCount> <!-- changed this to 0 -->
-                        <reuseForks>false</reuseForks>
-                        <useSystemClassLoader>false</useSystemClassLoader>
-                        <forkNode implementation="org.apache.maven.plugin.surefire.extensions.SurefireForkNodeFactory"/>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.surefire</groupId>
-                    <artifactId>surefire-booter</artifactId>
-                    <version>3.0.0-M4</version>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.jacoco</groupId>
-                    <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>0.8.5</version>
-                </plugin>
-
-                <plugin>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>2.22.2</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 </project>
