@@ -74,7 +74,7 @@ public class PreRepositoryCommitMessageHookTest {
 
     }
 
-    //TODO always accepted as there is no commits
+    //TODO fix: always accepted as there are no commits
     @Ignore
     public void testHappyPath() {
         //GIVEN
