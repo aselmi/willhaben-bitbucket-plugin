@@ -10,7 +10,7 @@
     <packaging>atlassian-plugin</packaging>
     <name>commit-message-validator-plugin</name>
 
-    <description>A simple hook plugin to validate the commit message contains a correct JIRA ticket id</description>
+    <description>A simple repository level hook plugin to validate that commit messages begins with JIRA ticket reference.</description>
     <organization>
         <name>Willhaben</name>
         <url>www.willhaben.at/iad</url>
